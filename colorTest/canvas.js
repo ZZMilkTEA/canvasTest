@@ -58,7 +58,7 @@ function draw() {
                 }
             }
             if (staut) {
-                ctx.fillStyle = "#000";
+                ctx.fillStyle = 'rgb('+ length * 5 + ',' + length * 5 + ',' + length * 5 + ')' ;
             } else {
                 ctx.fillStyle = "#fff";
             }
