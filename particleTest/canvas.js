@@ -2,7 +2,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 //粒子的创建
-function createPartical({x,y,r,c,vx,vy}){
+function Partical(x,y,r,c,vx,vy){
     this.x = x;
     this.y = y;
     this.radius = r;
@@ -17,7 +17,7 @@ function createPartical({x,y,r,c,vx,vy}){
         ctx.closePath();
         ctx.fillStyle = this.color;
         ctx.fill();
-    }
+    };
 
     this.move = function () {
         if (this.isXOutOfBorder()){
@@ -28,21 +28,21 @@ function createPartical({x,y,r,c,vx,vy}){
         }
         this.x += this.vx;
         this.y += this.vy;
-    }
+    };
 
     this.isXOutOfBorder = function () {
         return this.x + this.vx > canvas.width || this.x + this.vx < 0
-    }
+    };
 
     this.isYOutOfBorder = function () {
         return this.y + this.vy > canvas.height || this.y + this.vy < 0
     }
-};
+}
 
 //粒子生成
 var particals = [];
 for(var i = 0; i < 100; i++){
-    particals[i] = new createPartical(
+    particals[i] = new Partical(
         randomInt(0,canvas.width),
         randomInt(0,canvas.height),
         randomInt(5,20),

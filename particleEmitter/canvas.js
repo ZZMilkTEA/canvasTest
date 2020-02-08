@@ -1,8 +1,12 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+
+var particleMaxNumber = 20000;
+var particles = [];
+
 //粒子发射器
-function creatEmitter(x,y,d,er,st){
+function Emitter(x,y,d,er,st){
     this.x = x;
     this.y = y;
     this.director = d;
@@ -10,18 +14,19 @@ function creatEmitter(x,y,d,er,st){
     this.survivalTime = st;
 
     this.lauch = function (){
-        createPartical(this.x ,this.y, 5, colorRgb(255,0,0), randomInt(-5,5), randomInt(-5,5)
+        particle = new Particle(this.x ,this.y, 5, colorRgb(255,0,0), randomFloat(-5,5), randomFloat(-5,5),this.survivalTime);
+        particles.push(particle);
     }
 }
 
 //粒子的创建
-function createPartical(x,y,r,c,d,v,st) {
+function Particle(x, y, r, c,vx, vy, st) {
     this.x = x;
     this.y = y;
     this.radius = r;
     this.color = c;
-    this.d = d;
-    this.v = v;
+    this.velocityX = vx;
+    this.velocityY = vy;
     this.survivalTime = st;
 
     this.draw = function (){
@@ -35,27 +40,34 @@ function createPartical(x,y,r,c,d,v,st) {
 
     //粒子的移动
     this.move = function () {
-        this.x += this.;
-        this.y += this.vy;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
     };
 
     this.changeState = function () {
         this.move();
     };
-
-/
 };
 
-
+var emitter = new Emitter(200,150,0,20 ,100);
 
 //绘制
 function draw() {
+    emitter.lauch();
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i = 0; i < particals.length; i++){
-        particals[i].move();
-        particals[i].draw();
+    for(var i = 0; i < particles.length;){
+        particles[i].survivalTime--;
+        if (particles[i].survivalTime <= 0){
+            particles.splice(i,1);
+        }
+        else {
+            i++;
+        }
     }
-
+    for(var i = 0; i < particles.length; i++){
+        particles[i].move();
+        particles[i].draw();
+    }
     //开启循环动画播放模式用的代码
     requestAnimationFrame(draw);
 }
