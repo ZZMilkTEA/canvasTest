@@ -61,7 +61,7 @@ function Word2Particle(x , y , text) {
     this.y = y;
     this.size = 200;
     this.text = text;
-    this.postion = [];
+    this.position = [];
 }
 
 Word2Particle.prototype.getImage = function (){
@@ -74,7 +74,7 @@ Word2Particle.prototype.getImage = function (){
     for (var i = 0;i < canvas.width; i += gridX){
         for (var j = 0;j < canvas.height; j += gridY){
             if (buffer32[j * canvas.width + i]){
-               this.postion.push({posX:i,posY:j});
+               this.position.push({posX:i,posY:j});
             }
         }
     }
@@ -85,9 +85,9 @@ Word2Particle.prototype.getImage = function (){
 var shape = new Word2Particle(550,300,"Hello,world!")
 shape.getImage();
 var particles = [];
-for (var i = 0; i < shape.postion.length; i++){
+for (var i = 0; i < shape.position.length; i++){
     var particle = new Particle(randomInt(0,canvas.width), randomInt(0,canvas.height),randomInt(3,6),
-        colorRgb(255,0,randomInt(0,255)),randomInt(-3,3),randomInt(-3,3),{x:shape.postion[i].posX,y:shape.postion[i].posY});
+        colorRgb(255,0,randomInt(0,255)),randomInt(-3,3),randomInt(-3,3),{x:shape.position[i].posX,y:shape.position[i].posY});
     particles.push(particle);
 }
 
