@@ -29,10 +29,9 @@ function pick(event) {
     ball.setBallPostion(x,y);
 }
 
-
+canvas.addEventListener('mousedown', pick);
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    canvas.addEventListener('mousedown', pick);
     var text = "x:" + ball.pos_x + "  y:" + ball.pos_y;
     ctx.fillText(text, 10, 20);
     ball.drawBall();
